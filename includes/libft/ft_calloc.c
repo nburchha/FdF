@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:04:08 by nburchha         ###   ########.fr       */
+/*   Created: 2023/10/10 10:30:16 by nburchha          #+#    #+#             */
+/*   Updated: 2023/10/15 22:07:14 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <math.h>
+#include "libft.h"
 
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
-
-typedef struct s_FdF
+/// @brief allocates and zeroes memory with size and count given
+/// @return pointer to the allocated memory
+void	*ft_calloc(size_t count, size_t size)
 {
-	/* data */
-}	t_FdF;
+	void	*s;
 
-typedef struct s_coords
-{
-	int	z;
-	int	color;
-}		t_coords;
-
-t_coords	**parse_map(char *file);
-void		free_exit(char **coordinates, char *line, t_coords **coords);
-void		free_split(char **tab);
+	if (size && count * size > SIZE_MAX)
+		return (NULL);
+	s = malloc(count * size);
+	if (s == NULL)
+		return (NULL);
+	return (ft_memset(s, 0, (int) size * count));
+}

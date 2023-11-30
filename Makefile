@@ -2,28 +2,37 @@ CC = cc
 
 NAME = FdF
 
-CFLAGS = -Wall -Wextra -Werror
+LIB = includes/libft/libft.a
+
+CFLAGS = #-Wall -Wextra -Werror
 
 MLXFLAGS = -Iinclude -lglfw
 
-SRC = src/main.c
+SRC = src/main.c src/parse_map.c src/free_exit.c
 
 OBJ = $(SRC:.c=.o)
 
 all: MLX42 $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) ./MLX42/build/libmlx42.a $(MLXFLAGS)
+$(NAME): $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) ./MLX42/build/libmlx42.a $(MLXFLAGS) $(LIB)
 
 MLX42:
 	@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
 	@cd MLX42 && cmake -B build && cmake --build build -j4
 
+$(LIB):
+	cd includes/libft && make
+
 clean:
 	@rm -rf MLX42
 	@rm -f $(OBJ)
+	@cd includes/libft && make clean
 
 fclean: clean
 	@rm -f $(NAME)
+	@cd includes/libft && make fclean
 
 re: fclean all
+
+.PHONY: clean fclean all re

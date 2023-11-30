@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:04:08 by nburchha         ###   ########.fr       */
+/*   Created: 2023/10/08 15:42:13 by nburchha          #+#    #+#             */
+/*   Updated: 2023/10/15 20:41:51 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <math.h>
+#include "libft.h"
 
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
-
-typedef struct s_FdF
+/// @brief writes n zeroed bytes to the string s
+/// @param s string which is written to
+/// @param n how many bytes to overwrite
+void	ft_bzero(void *s, size_t n)
 {
-	/* data */
-}	t_FdF;
+	size_t	i;
 
-typedef struct s_coords
-{
-	int	z;
-	int	color;
-}		t_coords;
-
-t_coords	**parse_map(char *file);
-void		free_exit(char **coordinates, char *line, t_coords **coords);
-void		free_split(char **tab);
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = '\0';
+		i++;
+	}
+}

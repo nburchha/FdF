@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:04:08 by nburchha         ###   ########.fr       */
+/*   Created: 2023/10/06 18:16:50 by nburchha          #+#    #+#             */
+/*   Updated: 2023/10/10 19:33:50 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <math.h>
+#include "libft.h"
 
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
-
-typedef struct s_FdF
+char	*ft_strrchr(const char *s, int c)
 {
-	/* data */
-}	t_FdF;
+	int	i;
 
-typedef struct s_coords
-{
-	int	z;
-	int	color;
-}		t_coords;
-
-t_coords	**parse_map(char *file);
-void		free_exit(char **coordinates, char *line, t_coords **coords);
-void		free_split(char **tab);
+	i = ft_strlen(s);
+	while (i >= 0)
+	{
+		if (s[i] == (unsigned char)c)
+			return ((char *)s + i);
+		i--;
+	}
+	return (NULL);
+}

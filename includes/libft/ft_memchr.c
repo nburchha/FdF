@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:04:08 by nburchha         ###   ########.fr       */
+/*   Created: 2023/10/10 10:19:20 by nburchha          #+#    #+#             */
+/*   Updated: 2023/10/10 10:41:33 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <math.h>
+#include "libft.h"
 
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
-
-typedef struct s_FdF
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	/* data */
-}	t_FdF;
+	unsigned char		cc;
+	const unsigned char	*cs;
+	size_t				i;
 
-typedef struct s_coords
-{
-	int	z;
-	int	color;
-}		t_coords;
-
-t_coords	**parse_map(char *file);
-void		free_exit(char **coordinates, char *line, t_coords **coords);
-void		free_split(char **tab);
+	cc = (unsigned char) c;
+	cs = (const unsigned char *) s;
+	i = 0;
+	while (i < n)
+	{
+		if (cs[i] == cc)
+			return ((void *)(cs + i));
+		i++;
+	}
+	return (NULL);
+}

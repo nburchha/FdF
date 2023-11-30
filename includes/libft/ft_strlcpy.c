@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:04:08 by nburchha         ###   ########.fr       */
+/*   Created: 2023/10/05 12:31:31 by nburchha          #+#    #+#             */
+/*   Updated: 2023/10/10 14:29:28 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <math.h>
+#include "libft.h"
 
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
-
-typedef struct s_FdF
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	/* data */
-}	t_FdF;
+	size_t	i;
+	size_t	srclen;
 
-typedef struct s_coords
-{
-	int	z;
-	int	color;
-}		t_coords;
-
-t_coords	**parse_map(char *file);
-void		free_exit(char **coordinates, char *line, t_coords **coords);
-void		free_split(char **tab);
+	i = 0;
+	srclen = ft_strlen(src);
+	if (!dstsize)
+		return (srclen);
+	while (i < srclen && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (dstsize != 0)
+		dst[i] = '\0';
+	return (srclen);
+}

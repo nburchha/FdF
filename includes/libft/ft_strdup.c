@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:04:08 by nburchha         ###   ########.fr       */
+/*   Created: 2023/10/10 10:49:23 by nburchha          #+#    #+#             */
+/*   Updated: 2023/10/11 13:43:37 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <math.h>
+#include "libft.h"
 
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "libft/libft.h"
-
-typedef struct s_FdF
+/// @brief allocates memory for a copy of string s1
+/// @param s1 string that is copied
+/// @return pointer to copy of s1, if allocation fails NULL
+char	*ft_strdup(const char *s1)
 {
-	/* data */
-}	t_FdF;
+	char	*s2;
+	size_t	i;
 
-typedef struct s_coords
-{
-	int	z;
-	int	color;
-}		t_coords;
-
-t_coords	**parse_map(char *file);
-void		free_exit(char **coordinates, char *line, t_coords **coords);
-void		free_split(char **tab);
+	i = ft_strlen(s1) + 1;
+	s2 = malloc(i);
+	if (s2 == NULL)
+		return (NULL);
+	ft_strlcpy(s2, s1, i);
+	return (s2);
+}
