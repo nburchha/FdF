@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 MLXFLAGS = -Iinclude -lglfw
 
-SRC = src/main.c src/parse_map.c src/free_exit.c
+SRC = src/main.c src/parse_map.c src/free_exit.c src/calc_2d_coords.c src/draw_lines.c
 
 OBJ = $(SRC:.c=.o)
 

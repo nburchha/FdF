@@ -6,48 +6,15 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:58:44 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/04 15:10:33 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:21:06 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 #include <string.h>
-
-// Bytes Per Pixel. Since each pixel is represented as an integer, it will be four bytes for four channels.
 #define BPP sizeof(int32_t)
-
-// void	hook(mlx_key_data_t keydata, void *param)
-// {
-// 	mlx_t	*mlx = (mlx_t*)param;
-// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-// 		mlx_close_window(mlx);
-// }
-
-// int32_t	main(int argc, char **argv)
-// {
-	
-
-// 	// Init mlx with a canvas size of 256x256 and the ability to resize the window.
-// 	mlx_t* mlx = mlx_init(128, 128, "MLX42", true);
-
-// 	if (!mlx) exit(EXIT_FAILURE);
-
-// 	// Create a 128x128 image.
-//     mlx_image_t* img = mlx_new_image(mlx, 128, 128);
-
-//     // Set the channels of each pixel in our image to the maximum byte value of 255. 
-//     memset(img->pixels, 0xFF000000, img->width * img->height * BPP);
-
-//     // Draw the image at coordinate (0, 0).
-//     mlx_image_to_window(mlx, img, 0, 0);
-
-//     // Run the main loop and terminate on quit.
-// 	mlx_key_hook(mlx, &hook, (void *)mlx);
-//     mlx_loop(mlx);
-//     mlx_terminate(mlx);
-
-//     return (EXIT_SUCCESS);
-// }
+#define WIDTH 500
+#define HEIGHT 500
 
 void	print_coordinates(t_coords **coordinates)
 {
@@ -67,11 +34,33 @@ void	print_coordinates(t_coords **coordinates)
 		y++;
 	}
 }
+void	hook(mlx_key_data_t keydata, void *param)
+{
+	mlx_t	*mlx = (mlx_t*)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(mlx);
+}
 
 int	main(void)
 {
+	mlx_t		*mlx;
+	mlx_image_t	*image;
 	t_coords	**coordinates;
 
+	// if (argc != 2)
+	// 	exit(1);
 	coordinates = parse_map("test_maps/42.fdf");
-	print_coordinates(coordinates);
+	calc_2d_coords(coordinates);
+	// mlx_set_setting(MLX_MAXIMIZED, true);
+	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	image = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!image)
+		exit(EXIT_FAILURE);
+	loop_thru_coordinates(coordinates, image);
+	mlx_image_to_window(mlx, image, 0, 0);
+	mlx_key_hook(mlx, &hook, (void *)mlx);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 }
