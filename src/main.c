@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:58:44 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:01:09 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:10:33 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,29 @@
 //     return (EXIT_SUCCESS);
 // }
 
+void	print_coordinates(t_coords **coordinates)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (coordinates[y] != NULL)
+	{
+		x = 0;
+		while (coordinates[y][x].is_end == false)
+		{
+			printf("%d	", coordinates[y][x].z);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+}
+
 int	main(void)
 {
 	t_coords	**coordinates;
 
-	coordinates = parse_map("maps/42.fdf");
-	printf("x: %d\n", coordinates[0][0].z);
+	coordinates = parse_map("test_maps/42.fdf");
+	print_coordinates(coordinates);
 }

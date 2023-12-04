@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:10:55 by nburchha          #+#    #+#             */
-/*   Updated: 2023/11/30 18:03:07 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:44:37 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ t_coords	assign_single_coordinate(char **z_and_color)
 	return (coordinate);
 }
 
-t_coords	*assign_coords(char **str_coordinates, int y)
+t_coords	*assign_coords(char **str_coordinates)
 {
 	int			x;
 	int			count;
 	t_coords	*coordinates_array;
-	char		**z_and_color;
 
 	x = -1;
 	count = 0;
@@ -59,12 +58,16 @@ t_coords	*assign_coords(char **str_coordinates, int y)
 		count++;
 	if (str_coordinates == NULL || str_coordinates[0] == NULL)
 		return (NULL);
-	coordinates_array = (t_coords *)malloc(count * sizeof(t_coords));
+	coordinates_array = (t_coords *)malloc((count + 1) * sizeof(t_coords));
 	if (coordinates_array == NULL)
 		return (NULL);
 	while (str_coordinates[++x] != NULL)
+	{
 		coordinates_array[x] = assign_single_coordinate(ft_split(str_coordinates[x], ','));
+		coordinates_array[x].is_end = false;
+	}
 	free_split(str_coordinates);
+	coordinates_array[x].is_end = true;
 	return (coordinates_array);
 }
 
@@ -84,8 +87,9 @@ t_coords	**parse_map(char *file)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		coords[y] = assign_coords(ft_split(line, ' '), y);
+		coords[y] = assign_coords(ft_split(line, ' '));
 		free(line);
+		line = get_next_line(fd);
 		y++;
 	}
 	coords[y] = NULL;
