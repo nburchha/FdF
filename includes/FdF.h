@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/04 20:04:56 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:12:18 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_FdF
 
 typedef struct s_coords
 {
-	float	x;
-	float	y;
+	int	x;
+	int	y;
 	int	z;
 	int	color;
 	bool	is_end;
@@ -41,7 +41,7 @@ t_coords	**parse_map(char *file);
 void		free_exit(char **coordinates, char *line, t_coords **coords);
 void		free_split(char **tab);
 int			get_map_size(char *file);
-void		calc_2d_coords(t_coords **coordinates);
+void		calc_2d_coords(t_coords **coordinates, int screen_width, int screen_height);
 void		draw_line(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2);
 void		loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image);
-
+void		draw_dom_x(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2);
