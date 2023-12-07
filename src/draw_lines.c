@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:09:31 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/06 17:15:07 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:05:09 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	inc_pos_neg(int a, int b)
 	return (1);
 }
 
-void	draw_dom_x(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
+void	draw_dom_x(mlx_image_t *image, t_coords cur, t_coords c2)
 {
 	int	e;
 	int	dx;
@@ -27,25 +27,26 @@ void	draw_dom_x(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
 	int	x_inc;
 	int	y_inc;
 
-	dx = abs(coordinate2.x - coordinate1.x);
-	dy = abs(coordinate2.y - coordinate1.y);
+	dx = abs(c2.x - cur.x);
+	dy = abs(c2.y - cur.y);
 	e = dx / 2;
-	x_inc = inc_pos_neg(coordinate1.x, coordinate2.x);
-	y_inc = inc_pos_neg(coordinate1.y, coordinate2.y);
-	while (coordinate1.x != coordinate2.x)
+	x_inc = inc_pos_neg(cur.x, c2.x);
+	y_inc = inc_pos_neg(cur.y, c2.y);
+	while (cur.x != c2.x)
 	{
-		mlx_put_pixel(image, coordinate1.x, coordinate1.y, 0xFF00FFFF);
+		if (cur.y >= 0 && cur.y < HEIGHT && cur.x >= 0 && cur.x < WIDTH)
+			mlx_put_pixel(image, cur.x, cur.y, calculate_gradient(cur, c2, 1 - fabs((float)(cur.x - c2.x) / (float)dx)));
 		e -= dy;
 		if (e < 0)
 		{
-			coordinate1.y += y_inc;
+			cur.y += y_inc;
 			e += dx;
 		}
-		coordinate1.x += x_inc;
+		cur.x += x_inc;
 	}
 }
 
-void	draw_dom_y(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
+void	draw_dom_y(mlx_image_t *image, t_coords cur, t_coords c2)
 {
 	int	e;
 	int	dx;
@@ -53,38 +54,39 @@ void	draw_dom_y(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
 	int	x_inc;
 	int	y_inc;
 
-	dx = abs(coordinate2.x - coordinate1.x);
-	dy = abs(coordinate2.y - coordinate1.y);
+	dx = abs(c2.x - cur.x);
+	dy = abs(c2.y - cur.y);
 	e = dx / 2;
-	x_inc = inc_pos_neg(coordinate1.x, coordinate2.x);
-	y_inc = inc_pos_neg(coordinate1.y, coordinate2.y);
-	while (coordinate1.y != coordinate2.y)
+	x_inc = inc_pos_neg(cur.x, c2.x);
+	y_inc = inc_pos_neg(cur.y, c2.y);
+	while (cur.y != c2.y)
 	{
-		mlx_put_pixel(image, coordinate1.x, coordinate1.y, 0xFF00FFFF);
+		if (cur.y >= 0 && cur.y < HEIGHT && cur.x >= 0 && cur.x < WIDTH)
+			mlx_put_pixel(image, cur.x, cur.y, calculate_gradient(cur, c2, 1 - fabs((float)(cur.y - c2.y) / (float)dy)));
 		e -= dx;
 		if (e < 0)
 		{
-			coordinate1.x += x_inc;
+			cur.x += x_inc;
 			e += dy;
 		}
-		coordinate1.y += y_inc;
+		cur.y += y_inc;
 	}
 }
 
-void	draw_line(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
+void	draw_line(mlx_image_t *image, t_coords cur, t_coords c2)
 {
 	int	dx;
 	int	dy;
 
-	dx = abs(coordinate2.x - coordinate1.x);
-	dy = abs(coordinate2.y - coordinate1.y);
+	dx = abs(c2.x - cur.x);
+	dy = abs(c2.y - cur.y);
 	if (dx > dy)
-		draw_dom_x(image, coordinate1, coordinate2);
+		draw_dom_x(image, cur, c2);
 	else
-		draw_dom_y(image, coordinate1, coordinate2);
+		draw_dom_y(image, cur, c2);
 }
 
-// void	draw_line(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
+// void	draw_line(mlx_image_t *image, t_coords cur, t_coords c2)
 // {
 //     int	dx;
 //     int	dy;
@@ -92,21 +94,21 @@ void	draw_line(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
 //     int	y_inc;
 //     int	error;
 
-//     if (coordinate2.x > coordinate1.x)
+//     if (c2.x > cur.x)
 //         x_inc = 1;
 //     else
 //         x_inc = -1;
 
-//     if (coordinate2.y > coordinate1.y)
+//     if (c2.y > cur.y)
 //         y_inc = 1;
 //     else
 //         y_inc = -1;
 
-//     dx = coordinate2.x - coordinate1.x;
+//     dx = c2.x - cur.x;
 //     if (dx < 0)
 //         dx = -dx;
 
-//     dy = coordinate2.y - coordinate1.y;
+//     dy = c2.y - cur.y;
 //     if (dy < 0)
 //         dy = -dy;
 
@@ -115,19 +117,19 @@ void	draw_line(mlx_image_t *image, t_coords coordinate1, t_coords coordinate2)
 //     else
 //         error = -dy / 2;
 
-//     while (coordinate1.x != coordinate2.x || coordinate1.y != coordinate2.y)
+//     while (cur.x != c2.x || cur.y != c2.y)
 //     {
-//         mlx_put_pixel(image, coordinate1.x, coordinate1.y, 0xFFFFFFFF);
+//         mlx_put_pixel(image, cur.x, cur.y, 0xFFFFFFFF);
 //         int e2 = error;
 //         if (e2 > -dx)
 //         {
 //             error -= dy;
-//             coordinate1.x += x_inc;
+//             cur.x += x_inc;
 //         }
 //         if (e2 < dy)
 //         {
 //             error += dx;
-//             coordinate1.y += y_inc;
+//             cur.y += y_inc;
 //         }
 //     }
 // }

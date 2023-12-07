@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:10:55 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/04 20:13:47 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:21:49 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_coords	assign_single_coordinate(char **z_and_color)
 	if (z_and_color[1] != NULL)
 		coordinate.color = ft_atoi_hex(z_and_color[1]);
 	else
-		coordinate.color = 0xFFFFFF;
+		coordinate.color = 0xFFFFFFFF;
 	free_split(z_and_color);
 	return (coordinate);
 }

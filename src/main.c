@@ -6,15 +6,13 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:58:44 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/06 17:14:40 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:26:25 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 #include <string.h>
-#define BPP sizeof(int32_t)
-#define WIDTH 500
-#define HEIGHT 500
+
 
 void	print_coordinates(t_coords **coordinates)
 {
@@ -41,17 +39,21 @@ void	hook(mlx_key_data_t keydata, void *param)
 		mlx_close_window(mlx);
 }
 
-int	main(void)
+void	fdf_init(t_coords **coordinates)
+{
+	
+}
+
+int	main(int argc, char **argv)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 	t_coords	**coordinates;
 
-	// if (argc != 2)
-	// 	exit(1);
-	coordinates = parse_map("test_maps/42.fdf");
-	calc_2d_coords(coordinates, WIDTH, HEIGHT);
-	// mlx_set_setting(MLX_MAXIMIZED, true);
+	if (argc != 2)
+		exit(1);
+	coordinates = parse_map(argv[1]);
+	calc_2d_coords(coordinates);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		exit(EXIT_FAILURE);
@@ -81,7 +83,7 @@ int	main(void)
 // 	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 // 	if (!image)
 // 		exit(EXIT_FAILURE);
-// 	draw_dom_x(image, (t_coords){100, 100, 0, 0xFFFFFFFF, false}, (t_coords){0, 0, 0, 0xFFFFFFFF, false});
+// 	draw_dom_x(image, (t_coords){0, 0, 0, 0xFFFFFFFF, false}, (t_coords){1000, 1000, 0, 0x000000FF, false});
 // 	mlx_image_to_window(mlx, image, 0, 0);
 // 	mlx_key_hook(mlx, &hook, (void *)mlx);
 // 	mlx_loop(mlx);
