@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:09:31 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/07 17:05:09 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:58:14 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,14 @@ void	loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image)
 	int	x;
 	int	y;
 
+	calc_2d_coords(coordinates, image->height, image->width);
+	y = -1;
+	while (coordinates[++y] != NULL)
+	{
+		x = -1;
+		while (coordinates[y][++x].is_end == false)
+			mlx_put_pixel(image, x, y, 0xFFFFFFFF);
+	}
 	y = 0;
 	while (coordinates[y] != NULL)
 	{
