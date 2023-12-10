@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:58:44 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/08 16:57:34 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:41:29 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ void	print_coordinates(t_coords **coordinates)
 	}
 }
 
-// void	hook(mlx_key_data_t keydata, void *param)
-// {
-// 	mlx_t	*mlx = (mlx_t*)param;
-// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-// 		mlx_close_window(mlx);
-// }
-
 t_keys_held	*init_keys(void)
 {
 	t_keys_held	*keys;
@@ -52,45 +45,42 @@ t_keys_held	*init_keys(void)
 	return (keys);
 }
 
-t_render_settings	*init_render_settings(mlx_image_t *img, mlx_t *mlx, t_coords **coordinates)
+t_data	*init_data(t_coords **coordinates)
 {
-	t_render_settings	*render_settings;
+	t_data	*data;
 
-	render_settings = (t_render_settings *)malloc(sizeof(t_render_settings));
-	if (!render_settings)
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
 		exit (1);//handle error
-	render_settings->image = img;
-	render_settings->mlx = mlx;
-	render_settings->rotation = 0;
-	render_settings->zoom = 1;
-	render_settings->keys = init_keys();
-	render_settings->coordinates = coordinates;
-	return (render_settings);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	if (!data->mlx)
+		exit(EXIT_FAILURE);
+	data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->image)
+		exit(EXIT_FAILURE);
+	data->rotation = 0;
+	data->zoom = 1;
+	data->keys = init_keys();
+	data->coordinates = coordinates;
+	return (data);
 }
 
+//put more functions in main loop, that arent there to initialize the window etc?
 void	init_fdf(t_coords **coordinates)
 {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	t_render_settings *render_settings;
+	t_data *data;
 
-	render_settings = (t_render_settings *)malloc(sizeof(t_render_settings));
-	if (!render_settings)
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
 		exit(1);
-	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
-	if (!mlx)
-		exit(EXIT_FAILURE);
-	image = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!image)
-		exit(EXIT_FAILURE);
-	render_settings = init_render_settings(image, mlx, coordinates);
-	loop_thru_coordinates(coordinates, image);
-	mlx_image_to_window(mlx, image, 0, 0);
-	// mlx_key_hook(mlx, &hook, (void *)mlx);
-	mlx_loop_hook(mlx, &generic_hook, (void *)render_settings);
-	mlx_close_hook(mlx, &close_hook, (void *)render_settings);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	data = init_data(coordinates);
+	loop_thru_coordinates(coordinates, data->image, data->mlx);
+	mlx_image_to_window(data->mlx, data->image, 0, 0);
+	mlx_key_hook(data->mlx, &hook, (void *)data);
+	mlx_loop_hook(data->mlx, &generic_hook, (void *)data);
+	mlx_close_hook(data->mlx, &close_hook, (void *)data);
+	mlx_loop(data->mlx);
+	mlx_terminate(data->mlx);
 }
 
 int	main(int argc, char **argv)

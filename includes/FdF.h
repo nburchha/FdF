@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/08 16:58:39 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:41:01 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_coords
 	bool	is_end;
 }		t_coords;
 
-typedef struct s_render_settings
+typedef struct s_data
 {
 	int			rotation;
 	int			zoom;
@@ -49,7 +49,7 @@ typedef struct s_render_settings
 	mlx_t		*mlx;
 	t_coords	**coordinates;
 	t_keys_held	*keys;
-}	t_render_settings;
+}	t_data;
 
 t_coords	**parse_map(char *file);
 void		free_exit(char **coordinates, char *line, t_coords **coords);
@@ -57,8 +57,9 @@ void		free_split(char **tab);
 int			get_map_size(char *file);
 void		calc_2d_coords(t_coords **coordinates, int height, int width);
 void		draw_line(mlx_image_t *image, t_coords c1, t_coords c2);
-void		loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image);
+void		loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image, mlx_t *mlx);
 void		draw_dom_x(mlx_image_t *image, t_coords c1, t_coords c2);
 int			calculate_gradient(t_coords coord_a, t_coords coord_b, float fraction);
 void		generic_hook(void *param);
 void	close_hook(void *param);
+void	hook(mlx_key_data_t keydata, void *param);

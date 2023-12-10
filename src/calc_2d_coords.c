@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:45:47 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/08 17:05:35 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:33:13 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	calc_2d_coords(t_coords **coordinates, int height, int width)
 	float	angle = 0.45;
 
 	y = 0;
-	printf("width: %d, height: %d\n", width, height);
+	// printf("width: %d, height: %d\n", width, height);
 	while (coordinates[y] != NULL)
 	{
 		x = 0;
