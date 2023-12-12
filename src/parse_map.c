@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:10:55 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/07 16:21:49 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/12 22:36:54 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,20 @@ int	get_map_size(char *file)
 	return (y);
 }
 
+int	adjust_color_format(int color)
+{
+	// if ((color & 0x000000FF) == 0)
+	// 	color |= 0x000000FF; // Set alpha channel to 0xFF
+	return (color);
+}
+
 t_coords	assign_single_coordinate(char **z_and_color)
 {
 	t_coords	coordinate;
 
 	coordinate.z = ft_atoi(z_and_color[0]);
 	if (z_and_color[1] != NULL)
-		coordinate.color = ft_atoi_hex(z_and_color[1]);
+		coordinate.color = adjust_color_format(ft_atoi_hex(z_and_color[1]));
 	else
 		coordinate.color = 0xFFFFFFFF;
 	free_split(z_and_color);

@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/12 21:25:08 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/12 22:03:09 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_data
 	bool	key_r;
 	bool	key_q;
 	bool	key_w;
-	bool	key_e;
+	bool	key_i;
 }	t_data;
 
 t_coords	**parse_map(char *file);
@@ -67,7 +67,8 @@ void	hook(mlx_key_data_t keydata, void *param);
 void	load_new_image(t_data *data);
 void	resize_hook(int width, int height, void *param);
 void	scroll_hook(double xdelta, double ydelta, void* param);
+void	generic_hook(void *param);
 
 float	rotation_x(float x, float y, t_data *data);
 float	rotation_y(float x, float y, t_data *data);
-float	rotation_z(float x, float y, t_data *data);
+// float	rotation_z(float x, float y, t_data *data);
