@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:00:06 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/10 21:00:59 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:06:16 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,18 @@ int	calculate_gradient(t_coords coord_a, t_coords coord_b, float fraction)
 	int r;
 	int g;
 	int b;
+	int	a;
 
 	if (coord_a.color == coord_b.color)
 		return (coord_a.color);
 	r = (get_r(coord_b.color) - get_r(coord_a.color));
 	g = (get_g(coord_b.color) - get_g(coord_a.color));
 	b = (get_b(coord_b.color) - get_b(coord_a.color));
+	a = (get_a(coord_b.color) - get_a(coord_a.color));
 	r = get_r(coord_a.color) + fraction * r;
 	g = get_g(coord_a.color) + fraction * g;
 	b = get_b(coord_a.color) + fraction * b;
-
-	return ((r << 24) | (g << 16) | (b << 8) | 0xFF);
+	a = get_a(coord_a.color) + fraction * a;
+	// printf("0x%X\n", ((r << 24) | (g << 16) | (b << 8) | a));
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }

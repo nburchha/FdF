@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:09:31 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/10 22:04:54 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:32:53 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ void	loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image, mlx_t *ml
 	int	x;
 	int	y;
 
-	mlx_delete_image(mlx, image);
-	image = mlx_new_image(mlx, mlx->width, mlx->height);
-	mlx_image_to_window(mlx, image, 0, 0);
 	y = -1;
 	while (++y < mlx->height)
 	{
@@ -101,6 +98,7 @@ void	loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image, mlx_t *ml
 		while (++x < mlx->width)
 			mlx_put_pixel(image, x, y, 0x000000FF);
 	}
+	printf("image cleared\n");
 	y = -1;
 	while (coordinates[++y] != NULL)
 	{
@@ -114,6 +112,3 @@ void	loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image, mlx_t *ml
 		}
 	}
 }
-
-
-//when changing the window size too much there is something being cut of sometimes, why??
