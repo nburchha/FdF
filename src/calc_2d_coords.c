@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:45:47 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 21:09:37 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:14:19 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	isometric_projection(t_data *data, int x, int y)
 	* data->zoom + data->mlx->height / 2 + data->offset_y;
 }
 
-void	parallel_projection(t_data *data)
+void	parallel_projection(t_data *data, int x, int y)
 {
 	data->coordinates[y][x].x = rotation_x(x, y, data) * data->zoom + \
 								data->mlx->width / 2 + data->offset_x;
