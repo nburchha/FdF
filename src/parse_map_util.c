@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:30:15 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/13 22:55:28 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:19:39 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ bool	fdf_ending(char *file)
 	while (splitted_string[i])
 		i++;
 	if (ft_strncmp(splitted_string[i - 1], "fdf", 3) != 0)
-		return (perror("wrong file ending"), free_split(splitted_string), false);
+	{
+		return (perror("wrong file ending"), free_split(splitted_string), \
+		false);
+	}
 	return (free_split(splitted_string), true);
 }

@@ -6,30 +6,12 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:58:44 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 11:33:12 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:12:40 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 #include <string.h>
-
-void	print_coordinates(t_coords **coordinates)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (coordinates[y] != NULL)
-	{
-		x = 0;
-		while (coordinates[y][x].is_end == false)
-		{
-			printf("%d\t", y);
-			x++;
-		}
-		y++;
-	}
-}
 
 void	init_data2(t_data *data)
 {
@@ -86,7 +68,6 @@ int	main(int argc, char **argv)
 		exit(1);
 	coordinates = parse_map(argv[1]);
 	init_fdf(coordinates);
-	// system("leaks FdF");
 	return (0);
 }
 

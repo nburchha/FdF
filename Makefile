@@ -4,7 +4,7 @@ NAME = FdF
 
 LIB = includes/libft/libft.a
 
-CFLAGS = -Wall -Wextra -Werror#-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 MLXFLAGS = -Iinclude -lglfw
 
