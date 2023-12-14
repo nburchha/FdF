@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:45:47 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 16:27:44 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:09:37 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	isometric_projection(t_data *data, int x, int y)
 	data->coordinates[y][x].y = ((rotation_x(x, y, data) + \
 	rotation_y(x, y, data)) * sin(0.45) - (data->coordinates[y][x].z / 2)) \
 	* data->zoom + data->mlx->height / 2 + data->offset_y;
-	printf("x: %d\ty: %d", data->coordinates[y][x].x)
 }
 
 void	parallel_projection(t_data *data)
