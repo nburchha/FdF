@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 15:15:58 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:24:36 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <fcntl.h>
 #include <math.h>
 #include <errno.h>
-#define WIDTH 5120
-#define HEIGHT 2880
+#define WIDTH 1000
+#define HEIGHT 1000
 
 #include "../MLX42/include/MLX42/MLX42.h"
 #include "libft/libft.h"
