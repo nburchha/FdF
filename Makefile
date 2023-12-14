@@ -4,11 +4,13 @@ NAME = FdF
 
 LIB = includes/libft/libft.a
 
-CFLAGS = -Wall -Wextra -Werror #-lm #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror#-fsanitize=address
 
 MLXFLAGS = -Iinclude -lglfw
 
-SRC = src/main.c src/parse_map.c src/free_exit.c src/calc_2d_coords.c src/draw_lines.c src/color.c src/hooks.c src/rotation.c
+SRC = src/main.c src/parse_map.c src/free_exit.c src/calc_2d_coords.c \
+	src/draw_lines.c src/color.c src/hooks.c src/rotation.c \
+	src/parse_map_util.c src/hooks_util.c
 
 OBJ = $(SRC:.c=.o)
 

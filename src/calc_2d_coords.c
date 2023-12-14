@@ -6,29 +6,54 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:45:47 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/12 13:18:21 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:31:09 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
+void	isometric_projection(t_data *data, int x, int y)
+{
+	data->coordinates[y][x].x = ((rotation_x(x, y, data) - \
+	rotation_y(x, y, data)) * cos(0.45)) * data->zoom + \
+	data->mlx->width / 2 + data->offset_x;
+	data->coordinates[y][x].y = ((rotation_x(x, y, data) + \
+	rotation_y(x, y, data)) * sin(0.45) - (data->coordinates[y][x].z / 2)) \
+	* data->zoom + data->mlx->height / 2 + data->offset_y;
+}
+
+// void	parallel_projection(t_data *data, int x, int y)
+// {
+// 	data->coordinates[y][x].x = rotation_x(x, y, data) * data->zoom + \
+// 								data->mlx->width / 2 + data->offset_x; // - rotation_y(x, y, \ data)) * cos(0.45)
+// 	data->coordinates[y][x].y = rotation_y(x, y, data) * data->zoom + \
+// 								data->mlx->height / 2 + data->offset_y; //  + rotation_y(x, y, \data)) * sin(0.45)
+// }
+
+void	parallel_projection(t_data *data, int x, int y)
+{
+    data->coordinates[y][x].x = rotation_x(x, y, data) * data->zoom + data->mlx->width / 2 + data->offset_x;
+    data->coordinates[y][x].y = (-data->coordinates[y][x].z / 2) * data->zoom + data->mlx->height / 2 + data->offset_y;
+}
+
 void	calc_2d_coords(t_data *data)
 {
-	int	x;
-	int	y;
-	float	angle = 0.45;
+	int		x;
+	int		y;
 
-	y = 0;
-	// printf("width: %d, height: %d\n", width, height);
-	while (data->coordinates[y] != NULL)
+	y = -1;
+	while (data->coordinates[++y] != NULL)
 	{
-		x = 0;
-		while (data->coordinates[y][x].is_end == false)
+		// printf("%d\n", y);
+		x = -1;
+		while (data->coordinates[y][++x].is_end == false)
 		{
-			data->coordinates[y][x].x = ((rotation_x(x, y, data) - rotation_y(x, y, data)) * cos(angle)) * data->zoom + data->mlx->width / 2 + data->offset_x;
-			data->coordinates[y][x].y = ((rotation_x(x, y, data) + rotation_y(x, y, data)) * sin(angle) - data->coordinates[y][x].z) * data->zoom + data->mlx->height / 2 + data->offset_y;
-			x++;
+			// printf("%d\t", x);
+			if (data->key_p == true)
+				parallel_projection(data, x, y);
+			else
+				isometric_projection(data, x, y);
 		}
-		y++;
+		// printf("\n");
 	}
 }

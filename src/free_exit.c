@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:12:36 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/12 10:57:17 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:00:39 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ void	free_split(char **tab)
 	tab = NULL;
 }
 
-void	free_exit(char **coordinates, char *line, t_coords **coords)
+void	free_exit_coordinates(char **coordinates, char *line, t_coords **coords)
 {
-	if (coords != NULL)
+	int	i;
+
+	i = -1;
+	if (coords[++i] != NULL)
 	{
-		while (*coords != NULL)
+		while (coords[i] != NULL)
 		{
-			free(*coords);
-			*coords = NULL;
-			coords++;
+			free(coords[i]);
+			coords[i] = NULL;
 		}
-		// free(coords);
 	}
 	if (coordinates != NULL)
 		free_split(coordinates);
@@ -47,4 +48,25 @@ void	free_exit(char **coordinates, char *line, t_coords **coords)
 		line = NULL;
 	}
 	exit(1);
+}
+
+void	free_exit_data(t_data *data)
+{
+	int	i;
+
+	if (data->mlx)
+		mlx_terminate(data->mlx);
+	if (data->coordinates)
+	{
+		i = -1;
+		while (data->coordinates[++i] != NULL)
+		{
+			free(data->coordinates[i]);
+			data->coordinates[i] = NULL;
+		}
+		free(data->coordinates);
+		data->coordinates = NULL;
+	}
+	free(data);
+	data = NULL;
 }

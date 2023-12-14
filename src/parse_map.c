@@ -6,54 +6,28 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:10:55 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/12 22:36:54 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:33:20 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-int	get_map_size(char *file)
-{
-	int		fd;
-	char	*line;
-	int		y;
-
-	y = 0;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		exit(1);
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		y++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (y);
-}
-
-int	adjust_color_format(int color)
-{
-	// if ((color & 0x000000FF) == 0)
-	// 	color |= 0x000000FF; // Set alpha channel to 0xFF
-	return (color);
-}
-
-t_coords	assign_single_coordinate(char **z_and_color)
+t_coords	assign_single_coordinate(char **z_and_color, int size)
 {
 	t_coords	coordinate;
 
+	coordinate.is_end = false;
+	coordinate.size = size;
 	coordinate.z = ft_atoi(z_and_color[0]);
 	if (z_and_color[1] != NULL)
 		coordinate.color = adjust_color_format(ft_atoi_hex(z_and_color[1]));
 	else
-		coordinate.color = 0xFFFFFFFF;
+		coordinate.color = 0xF0F0F0FF;
 	free_split(z_and_color);
 	return (coordinate);
 }
 
-t_coords	*assign_coords(char **str_coordinates)
+t_coords	*assign_coords(char **str_coordinates, int size)
 {
 	int			x;
 	int			count;
@@ -70,31 +44,34 @@ t_coords	*assign_coords(char **str_coordinates)
 		return (NULL);
 	while (str_coordinates[++x] != NULL)
 	{
-		coordinates_array[x] = assign_single_coordinate(ft_split(str_coordinates[x], ','));
-		coordinates_array[x].is_end = false;
+		coordinates_array[x] = \
+		assign_single_coordinate(ft_split(str_coordinates[x], ','), size);
 	}
 	free_split(str_coordinates);
 	coordinates_array[x].is_end = true;
 	return (coordinates_array);
 }
 
-// open a certain file and read line by line and save the word (seperated by a space) in a 2d array with ft_split
 t_coords	**parse_map(char *file)
 {
 	int			fd;
 	int			y;
+	int			size;
 	char		*line;
 	t_coords	**coords;
 
-	y = 0;
+	if (fdf_ending(file) == false)
+		exit (1);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit(1);
-	coords = (t_coords **)malloc((get_map_size(file) + 1) * sizeof(t_coords *));
+	size = get_map_size(file);
+	coords = (t_coords **)malloc((size + 1) * sizeof(t_coords *));
 	line = get_next_line(fd);
+	y = 0;
 	while (line != NULL)
 	{
-		coords[y] = assign_coords(ft_split(line, ' '));
+		coords[y] = assign_coords(ft_split(line, ' '), size);
 		free(line);
 		line = get_next_line(fd);
 		y++;

@@ -6,24 +6,11 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 13:24:28 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/12 22:05:04 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:28:38 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
-
-void	load_new_image(t_data *data)
-{
-	calc_2d_coords(data);
-	if (data->image)
-		mlx_delete_image(data->mlx, data->image);
-	data->image = mlx_new_image(data->mlx, data->mlx->width, data->mlx->height);
-	printf("new image\n");
-	mlx_image_to_window(data->mlx, data->image, 0, 0);
-	loop_thru_coordinates(data->coordinates, data->image, data->mlx);
-	// printf("neues image\n");
-	// mlx_image_to_window(data->mlx, data->image, 0, 0);
-}
 
 void	resize_hook(int width, int height, void *param)
 {
@@ -35,13 +22,11 @@ void	resize_hook(int width, int height, void *param)
 	load_new_image(data);
 }
 
-void	scroll_hook(double xdelta, double ydelta, void* param)
+void	scroll_hook(double xdelta, double ydelta, void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)param;
-	// if (data->z_rotation_rad >= 6.28319 || data->z_rotation_rad <= -6.28319)
-	// 	data->z_rotation_rad = 0;
 	if (data->key_r == true)
 		data->z_rotation_rad += ydelta * 0.0174533;
 	else if (data->key_q == true)
@@ -52,10 +37,6 @@ void	scroll_hook(double xdelta, double ydelta, void* param)
 		data->zoom += 0.5 * ydelta;
 	load_new_image(data);
 	ydelta = xdelta;
-	// if (keydata.key == MLX_KEY_W && mlx_is_key_down(data->mlx, keydata.key))
-	// 	data->x_rotation_rad += 0.0174533;
-	// if (keydata.key == MLX_KEY_S && mlx_is_key_down(data->mlx, keydata.key))
-	// 	data->x_rotation_rad += -0.0174533;
 }
 
 void	hook(mlx_key_data_t keydata, void *param)
@@ -79,26 +60,31 @@ void	hook(mlx_key_data_t keydata, void *param)
 		data->key_r = false;
 	if (keydata.key == MLX_KEY_I && keydata.action == MLX_PRESS)
 		data->key_i = !data->key_i;
-}
-
-void	close_hook(void *param)
-{
-	t_data	*data;
-
-	data = (t_data*)param;
-	mlx_close_window(data->mlx);
-	if (data->coordinates)
+	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
 	{
-		while (*(data->coordinates) != NULL)
-		{
-			free(*(data->coordinates));
-			*(data->coordinates) = NULL;
-			(data->coordinates)++;
-		}
+		data->key_p = !data->key_p;
+		load_new_image(data);
 	}
-	free(data);
-	data = NULL;
 }
+
+// void	close_hook(void *param)
+// {
+// 	t_data	*data;
+
+// 	data = (t_data *)param;
+// 	mlx_close_window(data->mlx);
+// 	if (data->coordinates)
+// 	{
+// 		while (*(data->coordinates) != NULL)
+// 		{
+// 			free(*(data->coordinates));
+// 			*(data->coordinates) = NULL;
+// 			(data->coordinates)++;
+// 		}
+// 	}
+// 	free(data);
+// 	data = NULL;
+// }
 
 void	generic_hook(void *param)
 {
