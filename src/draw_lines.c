@@ -6,18 +6,11 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:09:31 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 13:47:21 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:22:08 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
-
-int	inc_pos_neg(int a, int b)
-{
-	if (a > b)
-		return (-1);
-	return (1);
-}
 
 void	draw_dom_x(mlx_image_t *image, t_coords cur, t_coords c2)
 {
@@ -109,10 +102,12 @@ void	loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image, \
 		x = -1;
 		while (coordinates[y][++x].is_end == false)
 		{
-			if (coordinates[y][x + 1].is_end == false)
-				draw_line(image, coordinates[y][x], coordinates[y][x + 1]);
-			if (y + 1 < coordinates[0][0].size)
+			draw_line(image, coordinates[y][x], coordinates[y][x + 1]);
+			if (coordinates[y + 1])
 				draw_line(image, coordinates[y][x], coordinates[y + 1][x]);
 		}
+		// draw_line(image, coordinates[y][x], coordinates[y][x + 1]);
+		// if (coordinates[y + 1])
+		// 	draw_line(image, coordinates[y][x], coordinates[y + 1][x]);
 	}
 }

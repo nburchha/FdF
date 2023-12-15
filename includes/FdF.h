@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:39:02 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 21:24:36 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:16:46 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,7 @@ void		generic_hook(void *param);
 void		print_coordinates(t_coords **coordinates);
 float		rotation_x(float x, float y, t_data *data);
 float		rotation_y(float x, float y, t_data *data);
+int			inc_pos_neg(int a, int b);
+void		reset_image(mlx_image_t *image, mlx_t *mlx);
+
+void	print_color(t_coords **coordinates);

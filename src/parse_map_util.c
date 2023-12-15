@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:30:15 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 15:19:39 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:54:30 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,8 @@ int	get_map_size(char *file)
 
 int	adjust_color_format(int rgb)
 {
-	if ((rgb & 0xFF000000) == 0)
-	{
-		rgb = rgb << 8;
-		rgb |= 0x000000FF;
-	}
+	rgb = rgb << 8;
+	rgb |= 0x000000FF;
 	return (rgb);
 }
 

@@ -6,18 +6,17 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:10:55 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 16:15:16 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:23:33 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-t_coords	assign_single_coordinate(char **z_and_color, int size)
+t_coords	assign_single_coordinate(char **z_and_color)
 {
 	t_coords	coordinate;
 
 	coordinate.is_end = false;
-	coordinate.size = size;
 	coordinate.z = ft_atoi(z_and_color[0]);
 	if (z_and_color[1] != NULL)
 		coordinate.color = adjust_color_format(ft_atoi_hex(z_and_color[1]));
@@ -27,7 +26,7 @@ t_coords	assign_single_coordinate(char **z_and_color, int size)
 	return (coordinate);
 }
 
-t_coords	*assign_coords(char **str_coordinates, int size)
+t_coords	*assign_coords(char **str_coordinates)
 {
 	int			x;
 	int			count;
@@ -39,16 +38,16 @@ t_coords	*assign_coords(char **str_coordinates, int size)
 		count++;
 	if (str_coordinates == NULL || str_coordinates[0] == NULL)
 		return (NULL);
-	coordinates_array = (t_coords *)malloc((count) * sizeof(t_coords));
+	coordinates_array = (t_coords *)malloc((count + 1) * sizeof(t_coords));
 	if (coordinates_array == NULL)
 		return (NULL);
 	while (str_coordinates[++x] != NULL)
 	{
 		coordinates_array[x] = \
-		assign_single_coordinate(ft_split(str_coordinates[x], ','), size);
+		assign_single_coordinate(ft_split(str_coordinates[x], ','));
 	}
 	free_split(str_coordinates);
-	coordinates_array[x - 1].is_end = true;
+	coordinates_array[x].is_end = true;
 	return (coordinates_array);
 }
 
@@ -71,7 +70,7 @@ t_coords	**parse_map(char *file)
 	y = 0;
 	while (line != NULL)
 	{
-		coords[y] = assign_coords(ft_split(line, ' '), size);
+		coords[y] = assign_coords(ft_split(line, ' '));
 		free(line);
 		line = get_next_line(fd);
 		y++;

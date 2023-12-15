@@ -1,6 +1,6 @@
 CC = cc
 
-NAME = FdF
+NAME = fdf
 
 LIB = includes/libft/libft.a
 
@@ -10,7 +10,7 @@ MLXFLAGS = -Iinclude -lglfw
 
 SRC = src/main.c src/parse_map.c src/free_exit.c src/calc_2d_coords.c \
 	src/draw_lines.c src/color.c src/hooks.c src/rotation.c \
-	src/parse_map_util.c src/hooks_util.c
+	src/parse_map_util.c src/hooks_util.c src/draw_lines_util.c
 
 OBJ = $(SRC:.c=.o)
 

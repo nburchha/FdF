@@ -6,12 +6,31 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:58:44 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 21:21:51 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:20:26 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 #include <string.h>
+
+void	print_color(t_coords **coordinates)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (coordinates[i])
+	{
+		j = 0;
+		while (coordinates[i][j].is_end == false)
+		{
+			printf("%X\n", coordinates[i][j].color);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
 
 void	init_data2(t_data *data)
 {
@@ -67,29 +86,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		exit(1);
 	coordinates = parse_map(argv[1]);
+	print_color(coordinates);
 	init_fdf(coordinates);
 	return (0);
 }
-
-/* int	main(void)
-// {
-// 	mlx_t		*mlx;
-// 	mlx_image_t	*image;
-// 	// t_coords	**coordinates;
-
-// 	// if (argc != 2)
-// 	// 	exit(1);
-// 	// mlx_set_setting(MLX_MAXIMIZED, true);
-// 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
-// 	if (!mlx)
-// 		exit(EXIT_FAILURE);
-// 	image = mlx_new_image(mlx, WIDTH, HEIGHT);
-// 	if (!image)
-// 		exit(EXIT_FAILURE);
-// 	draw_dom_x(image, (t_coords){0, 0, 0, 0xFF000000, false}, \
-// 	(t_coords){1000, 1000, 0, 0x0000FFFF, false});
-// 	mlx_image_to_window(mlx, image, 0, 0);
-// 	mlx_key_hook(mlx, &hook, (void *)mlx);
-// 	mlx_loop(mlx);
-// 	mlx_terminate(mlx);
-// }*/

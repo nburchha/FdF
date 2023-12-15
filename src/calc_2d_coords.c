@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:45:47 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/14 21:20:04 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:15:48 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ void	calc_2d_coords(t_data *data)
 			else
 				isometric_projection(data, x, y);
 		}
+		// if (data->key_p == true)
+		// 	parallel_projection(data, x, y);
+		// else
+		// 	isometric_projection(data, x, y);
 	}
 }
