@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:09:31 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/15 15:22:08 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:34:56 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,10 @@ void	loop_thru_coordinates(t_coords **coordinates, mlx_image_t *image, \
 		x = -1;
 		while (coordinates[y][++x].is_end == false)
 		{
-			draw_line(image, coordinates[y][x], coordinates[y][x + 1]);
+			if (coordinates[y][x + 1].is_end == false)
+				draw_line(image, coordinates[y][x], coordinates[y][x + 1]);
 			if (coordinates[y + 1])
 				draw_line(image, coordinates[y][x], coordinates[y + 1][x]);
 		}
-		// draw_line(image, coordinates[y][x], coordinates[y][x + 1]);
-		// if (coordinates[y + 1])
-		// 	draw_line(image, coordinates[y][x], coordinates[y + 1][x]);
 	}
 }

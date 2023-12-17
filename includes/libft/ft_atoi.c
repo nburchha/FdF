@@ -6,7 +6,7 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:44:20 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/13 20:37:49 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:42:18 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_atoi_hex(const char *str)
 
 	number = 0;
 	i = 0;
-	while (str[i])
+	while (str[i] && str[i] != '\n')
 	{
 		number *= 16;
 		if (str[i] >= '0' && str[i] <= '9')

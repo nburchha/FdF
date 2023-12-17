@@ -6,31 +6,12 @@
 /*   By: nburchha <nburchha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:58:44 by nburchha          #+#    #+#             */
-/*   Updated: 2023/12/15 15:20:26 by nburchha         ###   ########.fr       */
+/*   Updated: 2023/12/17 14:13:27 by nburchha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 #include <string.h>
-
-void	print_color(t_coords **coordinates)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (coordinates[i])
-	{
-		j = 0;
-		while (coordinates[i][j].is_end == false)
-		{
-			printf("%X\n", coordinates[i][j].color);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
 
 void	init_data2(t_data *data)
 {
@@ -86,7 +67,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		exit(1);
 	coordinates = parse_map(argv[1]);
-	print_color(coordinates);
 	init_fdf(coordinates);
 	return (0);
 }
