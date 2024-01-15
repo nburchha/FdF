@@ -6,7 +6,7 @@ LIB = includes/libft/libft.a
 
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
-MLXFLAGS = -Iinclude -glfw3 #-Iincludes/MLX42 -LMLX42/build -lmlx -framework OpenGL -framework AppKit 
+MLXFLAGS = -L/opt/homebrew/opt/glfw/lib -lglfw -framework OpenGL
 
 SRC = src/main.c src/parse_map.c src/free_exit.c src/calc_2d_coords.c \
 	src/draw_lines.c src/color.c src/hooks.c src/rotation.c \
