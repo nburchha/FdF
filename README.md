@@ -29,19 +29,13 @@ To install and set up the FDF 42 Project, follow these steps:
     cd fdf
     ```
 
-2. **Initialize and update submodules**:
-    If your project uses submodules, make sure to initialize and update them:
-    ```bash
-    git submodule update --init --recursive
-    ```
-
-3. **Compile the project**:
+2. **Compile the project**:
     Use `make` to compile the project:
     ```bash
     make
     ```
 
-4. **Run the program**:
+3. **Run the program**:
     After compilation, you can run the program with a test map:
     ```bash
     ./fdf test_maps/42.fdf
