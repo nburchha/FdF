@@ -25,7 +25,7 @@ To install and set up the FDF 42 Project, follow these steps:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/your-username/fdf-42-project.git fdf
+    git clone https://github.com/nburchha/fdf-42-project.git fdf
     cd fdf
     ```
 
